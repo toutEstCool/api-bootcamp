@@ -15,7 +15,4 @@ export class AuthDto {
 	})
 	@IsString()
 	name: string
-
-	@IsString()
-	gitHubLink: string
 }
