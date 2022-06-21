@@ -20,6 +20,6 @@ export class JWTStrategy extends PassportStrategy(Strategy) {
 	}
 
 	async validate({ _id }: Pick<UserModel, '_id'>) {
-		const user = await this.UserModel.findById(_id).exec()
+		return this.UserModel.findById(_id).exec()
 	}
 }

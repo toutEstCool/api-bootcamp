@@ -9,10 +9,4 @@ export class AuthDto {
 	})
 	@IsString()
 	password: string
-
-	@MinLength(3, {
-		message: 'The name cannot be less than 3 characters',
-	})
-	@IsString()
-	name: string
 }

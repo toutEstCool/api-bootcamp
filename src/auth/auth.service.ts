@@ -49,23 +49,22 @@ export class AuthService {
 		const oldUser = await this.UserModel.findOne({
 			email: dto.email,
 		})
-
 		if (oldUser)
 			throw new BadRequestException(
-				'The user with this email is already in the system'
+				'User with this email is already in the system'
 			)
 
 		const salt = await genSalt(10)
 
 		const newUser = new this.UserModel({
 			email: dto.email,
-			name: dto.name,
 			password: await hash(dto.password, salt),
 		})
 
-		const tokens = await this.issueTokenPair(String(newUser._id))
+		const user = await newUser.save()
+		const tokens = await this.issueTokenPair(String(user._id))
 		return {
-			user: this.returnUserFields(newUser),
+			user: this.returnUserFields(user),
 			...tokens,
 		}
 	}
